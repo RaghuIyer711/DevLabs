@@ -1,0 +1,760 @@
+table FACT_MEMBER_SUCCESS
+	lineageTag: 1d6f2055-1e6c-49fc-8a6f-ac9d468d27a2
+
+	measure M_Has_Filter = ```
+			
+			Var FilterSelected = 
+			    IF(
+			        ISFILTERED(DIM_PRIORITY_GROUP[CARM]), 1, 
+			        If(ISFILTERED(DIM_PRIORITY_GROUP[Regional]), 1,
+			        If(ISFILTERED(DIM_PRIORITY_GROUP[First Nations]), 1,
+			        If(ISFILTERED(DIM_PRIORITY_GROUP[Living With Disabililty]), 1,
+			        If(ISFILTERED(DIM_PRIORITY_GROUP[PRIORITY_GROUP]), 1,
+			        If(ISFILTERED(FACT_MEMBER_SUCCESS[WEEKNUMBER]), 1,
+			        If(ISFILTERED(FACT_MEMBER_SUCCESS[MonthShort]), 1,
+			        If(ISFILTERED(FACT_MEMBER_SUCCESS[COHORT_MONTH]), 1,
+			        If(ISFILTERED(FACT_MEMBER_SUCCESS[Filter_Job_Success]), 1,
+			        If(ISFILTERED(FACT_MEMBER_SUCCESS[Filter_Business_Success]), 1,
+			        If(ISFILTERED(FACT_MEMBER_SUCCESS[Filter_Upskilling_Success]), 1,
+			        If(ISFILTERED(FACT_MEMBER_SUCCESS[Filter_Paid_Success]), 1,
+			        If(ISFILTERED(Dim_Calendar[Date]), 1,
+			        If(ISFILTERED(Dim_Calendar[MonthNameShort]), 1,
+			        0
+			        ))))))))))))))
+			RETURN
+			    FilterSelected
+			
+			
+			```
+		formatString: 0
+		lineageTag: ab6b91f6-a4e9-4f6b-a52a-6836e1b1850f
+
+		changedProperty = IsHidden
+
+	measure Report_Title = ```
+			
+			VAR SelectedCohort =  
+			    SELECTEDVALUE(DIM_COHORT[COHORT_NAME], "Active Cohorts")
+			RETURN
+			    "Member Success - " & SelectedCohort 
+			```
+		lineageTag: b67a5197-e0a0-41a9-a38b-f5a2f53188f4
+
+		changedProperty = IsHidden
+
+	measure M_Success_Count = ```
+			
+			var coh = If([M_Has_Filter_Coh]=1,1,0)
+			var filt = If([M_Has_Filter]=1,1,0)
+			var Scene = If ( coh = 0 && filt=0, 0, If(Coh=0 && filt = 1,1, If(Coh=1 && filt = 1,1, If(Coh=1 && filt = 0,0,0))))
+			var calc = If(Scene = 0, Calculate(Max(DIM_COHORT_SUMMARY[HAS_SUCCESS_COUNT])), Sum(FACT_MEMBER_SUCCESS[HAS_SUCCESS_CT]))         
+			var calc1 = If(Scene = 0, DIM_COHORT_SUMMARY[Cohort_Summary_Success_Ct], Sum(FACT_MEMBER_SUCCESS[HAS_SUCCESS_CT]))         
+			
+			Return calc1
+			
+			
+			
+			
+			```
+		formatString: 0
+		lineageTag: dcae0cea-b3c8-4d61-bd42-fd4348fbc09d
+
+		changedProperty = IsHidden
+
+	measure M_Success_% =
+			CALCULATE([M_Success_Count]/[M_Success_Denom])
+			--If (ISINSCOPE(FACT_MEMBER_SUCCESS[HAS_SUCCESS_CT]), CALCULATE([M_Success_Count]/[M_Success_Denom]), 0)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: f64a0bcf-10aa-400c-bda8-173af7cc6cc8
+
+	measure M_Success_Denom = MAX(FACT_MEMBER_SUCCESS[COHORT_MEMBER_SUCCESS_DENOM])
+		formatString: 0
+		lineageTag: afee5e1c-089f-47b8-8206-b3a3a56f7527
+
+	measure M_Rate_Success =
+			
+			var SuccessCt = If([M_Has_Filter]=0, Calculate(Max(DIM_COHORT_SUMMARY[HAS_SUCCESS_COUNT])), Sum(FACT_MEMBER_SUCCESS[HAS_SUCCESS_CT]))
+			var coh = IF(ISFILTERED(DIM_COHORT[COHORT_NAME]), 1,0)
+			var val = If(coh = 1, CALCULATE([M_Success_Count]/DIM_COHORT_SUMMARY[Cohort_Summary_Success_Denom]), [M_Success_%])
+			
+			RETURN val
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: cf204b16-fae7-4a17-8e7c-41ac40cf657d
+
+	measure M_Has_Filter_Coh = ```
+			
+			Var FilterSelected = 
+			    IF(
+			        ISFILTERED(DIM_COHORT[COHORT_NAME]), 1, 
+			        If(ISFILTERED(FACT_MEMBER_SUCCESS[COHORT]), 1,
+			        0
+			        ))
+			RETURN
+			    FilterSelected
+			
+			```
+		formatString: 0
+		lineageTag: ef643434-0fb9-4e7c-a9ae-b1f2b84e196b
+
+	measure M_Rate_Job_Success = Calculate(Sum(FACT_MEMBER_SUCCESS[HAS_JOB_SUCCESS_CT])/DIM_COHORT_SUMMARY[Cohort_Members])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 5f4ef83d-f7aa-4723-b4cb-2b7b7bd0f739
+
+	measure M_Rate_Business_Success = Calculate(Sum(FACT_MEMBER_SUCCESS[HAS_BUSINESS_SUCCESS_CT])/DIM_COHORT_SUMMARY[Cohort_Members])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 17212727-138f-4369-9bd6-e4a6fc44c9ca
+
+	measure M_Rate_Study_Success = Calculate(Sum(FACT_MEMBER_SUCCESS[HAS_STUDY_SUCCESS_CT])/DIM_COHORT_SUMMARY[Cohort_Members])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 716d73ad-0724-46a8-b812-3449cc2e88ed
+
+	measure M_Rate_Volunteer_Success = Calculate(Sum(FACT_MEMBER_SUCCESS[HAS_VOLUNTEER_SUCCESS_CT])/DIM_COHORT_SUMMARY[Cohort_Members])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: c27a15cb-4b9a-4b32-8a3f-aaeb1f0c14ff
+
+	measure M_Rate_Paid_Success = Calculate(Sum(FACT_MEMBER_SUCCESS[HAS_PAID_SUCCESS_CT])/DIM_COHORT_SUMMARY[Cohort_Members])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 069e550b-f91b-4cb9-a517-2b8e574f3de0
+
+	measure M_Rate_Dropouts = Calculate(Sum(FACT_MEMBER_SUCCESS[HAS_DROPOUT_CT])/DIM_COHORT_SUMMARY[Cohort_Members])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: d3c274d2-fe4f-415d-913c-0c4973c25305
+
+	measure M_Rate_Exclusions = Calculate(Sum(FACT_MEMBER_SUCCESS[HAS_EXCLUSION_CT])/DIM_COHORT_SUMMARY[Cohort_Members])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 5f89db1f-2f57-4809-9b2b-5c7e4a48e700
+
+	measure Has_Upskilling_Success_Count_Fct = Sum(FACT_MEMBER_SUCCESS[Has_Upskilling_Success_Ct])
+		lineageTag: 0efa0b79-df4f-4387-99e9-52652a8cc438
+
+	measure M_Upskilling_Success_%_Fct = ```
+			Calculate([Has_Upskilling_Success_Count_Fct]/DIM_COHORT_SUMMARY[Cohort_Members])
+			
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 9a28ba34-ce51-46da-99f2-1e206cfd9fb0
+
+	measure M_Success_Count_Cumulative =
+			CALCULATE(Sum([HAS_SUCCESS_CT]), FIlter(All(Dim_Calendar[Date]), Dim_Calendar[Date] <= Max(Dim_Calendar[Date])))
+			
+			-- CALCULATE(Sum(DIM_COHORT_SUMMARY[HAS_SUCCESS_COUNT]), FIlter(All(Dim_Calendar[Date]), Dim_Calendar[Date] <= Max(Dim_Calendar[Date])))
+		formatString: 0
+		lineageTag: 0d3658be-3291-4654-9ab9-318014ace406
+
+	column MEMBER_COHORT_KEY
+		dataType: int64
+		isKey
+		formatString: 0
+		lineageTag: fbcabc57-43f0-4c63-8bd8-109244e995bc
+		summarizeBy: distinctCount
+		sourceColumn: MEMBER_COHORT_KEY
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column ROW_NUM
+		dataType: double
+		lineageTag: 2163a8fa-2070-428c-aeb4-a1c4ac73302b
+		summarizeBy: sum
+		sourceColumn: ROW_NUM
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column WEEKNUMBER
+		dataType: int64
+		formatString: 0
+		lineageTag: 61606d22-c02d-481b-ae9b-d13fdbcc0fa2
+		summarizeBy: sum
+		sourceColumn: WEEKNUMBER
+
+		changedProperty = IsHidden
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column WEEKSTARTDATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ed2f97da-1ac8-4b72-a2d2-61aebf390210
+		summarizeBy: none
+		sourceColumn: WEEKSTARTDATE
+
+		variation Variation
+			isDefault
+			relationship: 04eafdbb-271e-45ba-988a-93662decf7f0
+			defaultHierarchy: LocalDateTable_a36b6dab-21c0-443b-bc63-aaf2e239365f.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column WEEKENDDATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a3576d2d-d165-4e7a-84f4-d8cc31a1f0d4
+		summarizeBy: none
+		sourceColumn: WEEKENDDATE
+
+		variation Variation
+			isDefault
+			relationship: c8754d20-ac20-4c18-8442-e7334687b412
+			defaultHierarchy: LocalDateTable_b89cc178-863f-43af-acd3-2fc8d581ce6b.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column COHORT_MONTH
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ce37c25-b7c4-44f8-8861-d39764d45ca8
+		summarizeBy: sum
+		sourceColumn: COHORT_MONTH
+
+		changedProperty = IsHidden
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column COHORT_ID
+		dataType: double
+		lineageTag: 976936c8-616d-48ea-8059-2ef39c1244ab
+		summarizeBy: count
+		sourceColumn: COHORT_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MEMBER_KEY
+		dataType: double
+		lineageTag: 11373ee0-a97f-4ebd-9170-ad569b3d8618
+		summarizeBy: none
+		sourceColumn: MEMBER_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COHORT_KEY
+		dataType: int64
+		formatString: 0
+		lineageTag: c3a19fea-35f8-43f5-8650-3cf19653a803
+		summarizeBy: none
+		sourceColumn: COHORT_KEY
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column COHORT
+		dataType: string
+		lineageTag: d24d46db-869f-4e42-bc1f-2d462fd0d50c
+		summarizeBy: none
+		sourceColumn: COHORT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column APPLICANT_KEY
+		dataType: double
+		lineageTag: 7f7ebf76-8d2f-40cb-ba33-16a675be7112
+		summarizeBy: sum
+		sourceColumn: APPLICANT_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MEMBER_SUCCESS_KEY
+		dataType: double
+		lineageTag: 38a885c1-2faf-4905-821b-46ec720035fe
+		summarizeBy: sum
+		sourceColumn: MEMBER_SUCCESS_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MEMBER_SUCCESS_DATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 109d3437-b029-4dea-b008-d19c042a5485
+		summarizeBy: none
+		sourceColumn: MEMBER_SUCCESS_DATE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column SUCCESS_TAG_DEFINITION_KEY
+		dataType: double
+		lineageTag: 040aac93-43e4-4863-8820-5028ae72b0e6
+		summarizeBy: sum
+		sourceColumn: SUCCESS_TAG_DEFINITION_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TAG_NAME
+		dataType: string
+		lineageTag: d60f844f-e2a6-49f4-8e89-cf98ca76908e
+		summarizeBy: none
+		sourceColumn: TAG_NAME
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SUCCESS_TYPE
+		dataType: string
+		lineageTag: 58cb898d-2f64-42b4-8491-32c478956c7c
+		summarizeBy: none
+		sourceColumn: SUCCESS_TYPE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_SUCCESS
+		dataType: string
+		lineageTag: 49dc9bd4-7afb-44ce-9b94-caf7ec118847
+		summarizeBy: none
+		sourceColumn: HAS_SUCCESS
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_SUCCESS_CT
+		dataType: int64
+		lineageTag: e7756681-2012-4b21-be8b-6c8d58559d75
+		summarizeBy: sum
+		sourceColumn: HAS_SUCCESS_CT
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column HAS_JOB_SUCCESS
+		dataType: string
+		lineageTag: 61f50a83-f93d-4058-96d9-fa36014a5631
+		summarizeBy: none
+		sourceColumn: HAS_JOB_SUCCESS
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_JOB_SUCCESS_CT
+		dataType: int64
+		formatString: 0
+		lineageTag: 4a4cbfb9-be86-4ad6-b657-9ed1bf69b24d
+		summarizeBy: none
+		sourceColumn: HAS_JOB_SUCCESS_CT
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column HAS_BUSINESS_SUCCESS
+		dataType: string
+		lineageTag: f3e9b239-bc02-41c1-bf64-70f6198cca7b
+		summarizeBy: none
+		sourceColumn: HAS_BUSINESS_SUCCESS
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_BUSINESS_SUCCESS_CT
+		dataType: int64
+		formatString: 0
+		lineageTag: 1621d956-f761-4b9f-a4bd-037f05b1832d
+		summarizeBy: sum
+		sourceColumn: HAS_BUSINESS_SUCCESS_CT
+
+		changedProperty = IsHidden
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_STUDY_SUCCESS
+		dataType: string
+		lineageTag: f94bd22b-5c24-47dd-9a41-99d698a21113
+		summarizeBy: none
+		sourceColumn: HAS_STUDY_SUCCESS
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_STUDY_SUCCESS_CT
+		dataType: int64
+		formatString: 0
+		lineageTag: f040ca3b-824b-4272-9365-76399c364516
+		summarizeBy: sum
+		sourceColumn: HAS_STUDY_SUCCESS_CT
+
+		changedProperty = IsHidden
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_VOLUNTEER_SUCCESS
+		dataType: string
+		lineageTag: 5c42fda5-39cd-4674-a171-0fdfcdb5ab4a
+		summarizeBy: none
+		sourceColumn: HAS_VOLUNTEER_SUCCESS
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_VOLUNTEER_SUCCESS_CT
+		dataType: int64
+		formatString: 0
+		lineageTag: 50a9ac6d-f27f-4950-973d-398cef3bf37d
+		summarizeBy: sum
+		sourceColumn: HAS_VOLUNTEER_SUCCESS_CT
+
+		changedProperty = IsHidden
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_PAID_SUCCESS
+		dataType: string
+		lineageTag: 576a4d4c-a455-4f36-89af-63d931ad6c01
+		summarizeBy: none
+		sourceColumn: HAS_PAID_SUCCESS
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_PAID_SUCCESS_CT
+		dataType: int64
+		formatString: 0
+		lineageTag: 300886f2-e54d-4c6f-b333-1835afb6fcf1
+		summarizeBy: sum
+		sourceColumn: HAS_PAID_SUCCESS_CT
+
+		changedProperty = IsHidden
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_DROPOUT
+		dataType: string
+		lineageTag: a242361c-ff2d-4ef4-bbc6-a451b0e20d6d
+		summarizeBy: none
+		sourceColumn: HAS_DROPOUT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_DROPOUT_CT
+		dataType: int64
+		formatString: 0
+		lineageTag: a9c8bea7-0a83-4a31-8506-2edc1cce4c78
+		summarizeBy: sum
+		sourceColumn: HAS_DROPOUT_CT
+
+		changedProperty = IsHidden
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_EXCLUSION
+		dataType: string
+		lineageTag: f0a97dfe-df04-4d32-95b4-33214e2ca67c
+		summarizeBy: none
+		sourceColumn: HAS_EXCLUSION
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_EXCLUSION_CT
+		dataType: int64
+		formatString: 0
+		lineageTag: b89ba5fd-07b9-471b-b728-f5296b299025
+		summarizeBy: sum
+		sourceColumn: HAS_EXCLUSION_CT
+
+		changedProperty = IsHidden
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_SUCCESS_MEMBER_COHORT_COUNT
+		dataType: int64
+		lineageTag: 11e6350b-3071-4016-ad8f-dade86671a52
+		summarizeBy: sum
+		sourceColumn: HAS_SUCCESS_MEMBER_COHORT_COUNT
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column HAS_JOB_SUCCESS_MEMBER_COHORT_COUNT
+		dataType: int64
+		lineageTag: 4a81f1b9-9338-4e15-b94e-5888c210ac42
+		summarizeBy: none
+		sourceColumn: HAS_JOB_SUCCESS_MEMBER_COHORT_COUNT
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column HAS_BUSINESS_SUCCESS_MEMBER_COHORT_COUNT
+		dataType: double
+		lineageTag: c4bab429-de13-4f0f-be9d-e46a5df0ac82
+		summarizeBy: sum
+		sourceColumn: HAS_BUSINESS_SUCCESS_MEMBER_COHORT_COUNT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column HAS_STUDY_SUCCESS_MEMBER_COHORT_COUNT
+		dataType: double
+		lineageTag: 39816ea9-8ca9-4525-a2ac-b744d793935b
+		summarizeBy: sum
+		sourceColumn: HAS_STUDY_SUCCESS_MEMBER_COHORT_COUNT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column HAS_VOLUNTEER_SUCCESS_MEMBER_COHORT_COUNT
+		dataType: double
+		lineageTag: a4e4c9fd-a92b-42c5-a515-948ddd6ba9eb
+		summarizeBy: sum
+		sourceColumn: HAS_VOLUNTEER_SUCCESS_MEMBER_COHORT_COUNT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column HAS_PAID_SUCCESS_MEMBER_COHORT_COUNT
+		dataType: double
+		lineageTag: 15464d5d-f628-45d2-90bb-7b6ef287d2ca
+		summarizeBy: sum
+		sourceColumn: HAS_PAID_SUCCESS_MEMBER_COHORT_COUNT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column HAS_DROPOUT_MEMBER_COHORT_COUNT
+		dataType: double
+		lineageTag: 11bc1ce8-6851-4025-b6eb-afea42f014f3
+		summarizeBy: sum
+		sourceColumn: HAS_DROPOUT_MEMBER_COHORT_COUNT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column HAS_EXCLUSION_MEMBER_COHORT_COUNT
+		dataType: double
+		lineageTag: 3e279cc6-fcd5-4421-9f3d-1003d6c3d4f4
+		summarizeBy: sum
+		sourceColumn: HAS_EXCLUSION_MEMBER_COHORT_COUNT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COHORT_MEMBER_COUNT
+		dataType: int64
+		lineageTag: cd41f5ed-553e-4bac-b3fb-1f70bf889a18
+		summarizeBy: none
+		sourceColumn: COHORT_MEMBER_COUNT
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COHORT_MEMBER_SUCCESS_DENOM
+		dataType: int64
+		lineageTag: b59d498b-2603-4b5d-8ff1-dead4da062fc
+		summarizeBy: none
+		sourceColumn: COHORT_MEMBER_SUCCESS_DENOM
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column HAS_SUCCESS_COUNT
+		dataType: int64
+		lineageTag: 81219ace-e44a-4a48-9f0f-5bbcbf6d654b
+		summarizeBy: none
+		sourceColumn: HAS_SUCCESS_COUNT
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Has_Upskilling_Success = If(FACT_MEMBER_SUCCESS[HAS_STUDY_SUCCESS] = "Yes", "Yes", If(FACT_MEMBER_SUCCESS[HAS_VOLUNTEER_SUCCESS]="Yes", "Yes", "No"))
+		lineageTag: cc0e8082-3740-41d0-b868-75c8a6af2c56
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Has_Upskilling_Success_Ct = FACT_MEMBER_SUCCESS[HAS_VOLUNTEER_SUCCESS_CT]+FACT_MEMBER_SUCCESS[HAS_STUDY_SUCCESS_CT]
+		formatString: 0
+		lineageTag: 95c976fc-1d7e-43cb-b7a5-df500d5b483c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Filter_Job_Success = If(FACT_MEMBER_SUCCESS[HAS_JOB_SUCCESS] = "Yes", "Job Success",BLANK())
+		lineageTag: d23768de-202b-4736-a693-fe3e45181fc6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Filter_Paid_Success = If(FACT_MEMBER_SUCCESS[HAS_PAID_SUCCESS] = "Yes", "Paid Success",BLANK())
+		lineageTag: 76f8a3cc-7b81-45f0-81a0-d46e9ed5d8fe
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Filter_Study_Success = If(FACT_MEMBER_SUCCESS[HAS_STUDY_SUCCESS] = "Yes", "Study Success",BLANK())
+		lineageTag: 863d26dd-1eb0-4b20-b858-d92c34e30b0a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Filter_Success = If(FACT_MEMBER_SUCCESS[HAS_SUCCESS] = "Yes", "Success",BLANK())
+		lineageTag: 4e2cdf21-82cb-488a-9d3a-da909e134546
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Filter_Volunteer_Success = If(FACT_MEMBER_SUCCESS[HAS_VOLUNTEER_SUCCESS] = "Yes", "Volunteer Success",BLANK())
+		lineageTag: e7c95349-ba11-48ee-946b-d84a296eaefe
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Filter_Business_Success = If(FACT_MEMBER_SUCCESS[HAS_BUSINESS_SUCCESS] = "Yes", "Business Success",BLANK())
+		lineageTag: b94cd7dc-23b5-4292-9157-068cd1d04a27
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Filter_Upskilling_Success = If(FACT_MEMBER_SUCCESS[Has_Upskilling_Success] = "Yes", "Upskilling Success",BLANK())
+		lineageTag: fa0493a5-bcb9-44e2-a56a-f60396781a69
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthShort = FORMAT('FACT_MEMBER_SUCCESS'[MEMBER_SUCCESS_DATE], "MMM")
+		lineageTag: 39f371d1-ae5e-4c8d-ab6e-c6733850e1ae
+		summarizeBy: none
+		sortByColumn: Month_Success_Date
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month_Success_Date = ```
+			MONTH(FACT_MEMBER_SUCCESS[MEMBER_SUCCESS_DATE]) 
+			```
+		formatString: 0
+		lineageTag: d9ca7699-5f9f-4310-b413-378d1238903b
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FACT_MEMBER_SUCCESS = m
+		mode: import
+		source =
+				let
+				    Source = Snowflake.Databases("JJEOGOT-UZ72538.snowflakecomputing.com","fw_warehouse",[Implementation="1.0"]),
+				    FW_GOLD_LAYER_Database = Source{[Name="FW_GOLD_LAYER",Kind="Database"]}[Data],
+				    GOLD_Schema = FW_GOLD_LAYER_Database{[Name="GOLD",Kind="Schema"]}[Data],
+				    FACT_MEMBER_SUCCESS_View = GOLD_Schema{[Name="FACT_MEMBER_SUCCESS",Kind="View"]}[Data]
+				in
+				    FACT_MEMBER_SUCCESS_View
+

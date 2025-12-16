@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Member Success"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c4750f11-105e-4b31-ac1a-5423dded35b6"
+  }
+}

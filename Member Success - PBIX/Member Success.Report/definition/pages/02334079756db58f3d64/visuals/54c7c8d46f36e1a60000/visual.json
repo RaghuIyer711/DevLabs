@@ -1,0 +1,532 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "54c7c8d46f36e1a60000",
+  "position": {
+    "x": 146.02747883789186,
+    "y": 92.12471819303245,
+    "z": 7000,
+    "height": 136.22697690246289,
+    "width": 1133.9180739291335,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DIM_COHORT_SUMMARY"
+                    }
+                  },
+                  "Property": "Cohort_Members"
+                }
+              },
+              "queryRef": "DIM_COHORT_SUMMARY.Cohort_Members",
+              "nativeQueryRef": "Size",
+              "displayName": "Size"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FACT_MEMBER_SUCCESS"
+                    }
+                  },
+                  "Property": "M_Success_Count"
+                }
+              },
+              "queryRef": "FACT_MEMBER_SUCCESS.M_Success_Count",
+              "nativeQueryRef": "Success",
+              "displayName": "Success"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FACT_MEMBER_SUCCESS"
+                    }
+                  },
+                  "Property": "M_Success_%"
+                }
+              },
+              "queryRef": "FACT_MEMBER_SUCCESS.M_Success_%",
+              "nativeQueryRef": "Success %",
+              "displayName": "Success %"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FACT_MEMBER_SUCCESS"
+                        }
+                      },
+                      "Property": "HAS_JOB_SUCCESS_CT"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(FACT_MEMBER_SUCCESS.HAS_JOB_SUCCESS_CT)",
+              "nativeQueryRef": "Job Success",
+              "displayName": "Job Success"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FACT_MEMBER_SUCCESS"
+                    }
+                  },
+                  "Property": "M_Rate_Job_Success"
+                }
+              },
+              "queryRef": "FACT_MEMBER_SUCCESS.M_Rate_Job_Success",
+              "nativeQueryRef": "Job Success %",
+              "displayName": "Job Success %"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FACT_MEMBER_SUCCESS"
+                        }
+                      },
+                      "Property": "HAS_BUSINESS_SUCCESS_CT"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(FACT_MEMBER_SUCCESS.HAS_BUSINESS_SUCCESS_CT)",
+              "nativeQueryRef": "Business Success",
+              "displayName": "Business Success"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FACT_MEMBER_SUCCESS"
+                    }
+                  },
+                  "Property": "M_Rate_Business_Success"
+                }
+              },
+              "queryRef": "FACT_MEMBER_SUCCESS.M_Rate_Business_Success",
+              "nativeQueryRef": "Business Success %",
+              "displayName": "Business Success %"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FACT_MEMBER_SUCCESS"
+                        }
+                      },
+                      "Property": "HAS_PAID_SUCCESS_CT"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(FACT_MEMBER_SUCCESS.HAS_PAID_SUCCESS_CT)",
+              "nativeQueryRef": "Paid Success",
+              "displayName": "Paid Success"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FACT_MEMBER_SUCCESS"
+                    }
+                  },
+                  "Property": "M_Rate_Paid_Success"
+                }
+              },
+              "queryRef": "FACT_MEMBER_SUCCESS.M_Rate_Paid_Success",
+              "nativeQueryRef": "Paid Success %",
+              "displayName": "Paid Success %"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FACT_MEMBER_SUCCESS"
+                        }
+                      },
+                      "Property": "HAS_EXCLUSION_CT"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(FACT_MEMBER_SUCCESS.HAS_EXCLUSION_CT)",
+              "nativeQueryRef": "Exclusions",
+              "displayName": "Exclusions"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FACT_MEMBER_SUCCESS"
+                        }
+                      },
+                      "Property": "HAS_STUDY_SUCCESS_CT"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(FACT_MEMBER_SUCCESS.HAS_STUDY_SUCCESS_CT)",
+              "nativeQueryRef": "Study Success",
+              "displayName": "Study Success"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FACT_MEMBER_SUCCESS"
+                    }
+                  },
+                  "Property": "M_Rate_Study_Success"
+                }
+              },
+              "queryRef": "FACT_MEMBER_SUCCESS.M_Rate_Study_Success",
+              "nativeQueryRef": "Study Success %",
+              "displayName": "Study Success %"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FACT_MEMBER_SUCCESS"
+                        }
+                      },
+                      "Property": "HAS_VOLUNTEER_SUCCESS_CT"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(FACT_MEMBER_SUCCESS.HAS_VOLUNTEER_SUCCESS_CT)",
+              "nativeQueryRef": "Volunteer Success",
+              "displayName": "Volunteer Success"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FACT_MEMBER_SUCCESS"
+                    }
+                  },
+                  "Property": "M_Rate_Volunteer_Success"
+                }
+              },
+              "queryRef": "FACT_MEMBER_SUCCESS.M_Rate_Volunteer_Success",
+              "nativeQueryRef": "Volunteer Success %",
+              "displayName": "Volunteer Success %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FACT_MEMBER_SUCCESS"
+                    }
+                  },
+                  "Property": "Has_Upskilling_Success_Count_Fct"
+                }
+              },
+              "queryRef": "FACT_MEMBER_SUCCESS.Has_Upskilling_Success_Count_Fct",
+              "nativeQueryRef": "Upskilling Success",
+              "displayName": "Upskilling Success"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FACT_MEMBER_SUCCESS"
+                    }
+                  },
+                  "Property": "M_Upskilling_Success_%_Fct"
+                }
+              },
+              "queryRef": "FACT_MEMBER_SUCCESS.Upskilling_Success_%_Fct",
+              "nativeQueryRef": "Upskilling Success %",
+              "displayName": "Upskilling Success %"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FACT_MEMBER_SUCCESS"
+                        }
+                      },
+                      "Property": "HAS_DROPOUT_CT"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(FACT_MEMBER_SUCCESS.HAS_DROPOUT_CT)",
+              "nativeQueryRef": "Sum of HAS_DROPOUT_CT",
+              "displayName": "Dropouts"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FACT_MEMBER_SUCCESS"
+                    }
+                  },
+                  "Property": "M_Rate_Dropouts"
+                }
+              },
+              "queryRef": "FACT_MEMBER_SUCCESS.M_Rate_Dropouts",
+              "nativeQueryRef": "Dropout %",
+              "displayName": "Dropout %"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "DIM_COHORT_SUMMARY"
+                  }
+                },
+                "Property": "Cohort_Members"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "grid": [
+        {
+          "properties": {}
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "label": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "layout": [
+        {
+          "properties": {
+            "orientation": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "rowCount": {
+              "expr": {
+                "Literal": {
+                  "Value": "2L"
+                }
+              }
+            },
+            "columnCount": {
+              "expr": {
+                "Literal": {
+                  "Value": "9L"
+                }
+              }
+            },
+            "style": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Table'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "value": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DIM_COHORT_SUMMARY.Cohort_Members"
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Sparse'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Success Detail'"
+                }
+              }
+            },
+            "titleWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

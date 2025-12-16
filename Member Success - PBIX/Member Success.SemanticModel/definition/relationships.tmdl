@@ -1,0 +1,46 @@
+relationship 9c923ab4-07d2-428a-8b52-db184f2b9f54
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIM_COHORT.START_DATE
+	toColumn: LocalDateTable_b1bfbc42-aad3-4627-8c06-3366559d0e1b.Date
+
+relationship a6ee21f7-1f50-47f0-89d9-2bc88a3c2036
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIM_COHORT.END_DATE
+	toColumn: LocalDateTable_4cbc55f6-19fe-47d8-99f1-0278971c78fa.Date
+
+relationship 52dd9ca0-2aeb-4b45-95a5-5c1d1d74e592
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIM_COHORT.CENSUS_DATE
+	toColumn: LocalDateTable_20285f8f-2bbc-41e2-88f5-7fa04eeae448.Date
+
+relationship 657908ab-c590-636c-60c4-bfe8901ea59b
+	crossFilteringBehavior: bothDirections
+	fromColumn: DIM_COHORT.COHORT_KEY
+	toColumn: DIM_COHORT_SUMMARY.COHORT_KEY
+
+relationship 04eafdbb-271e-45ba-988a-93662decf7f0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FACT_MEMBER_SUCCESS.WEEKSTARTDATE
+	toColumn: LocalDateTable_a36b6dab-21c0-443b-bc63-aaf2e239365f.Date
+
+relationship c8754d20-ac20-4c18-8442-e7334687b412
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FACT_MEMBER_SUCCESS.WEEKENDDATE
+	toColumn: LocalDateTable_b89cc178-863f-43af-acd3-2fc8d581ce6b.Date
+
+relationship b7ecb7e2-e521-7588-f3fa-3016507acc28
+	crossFilteringBehavior: bothDirections
+	fromColumn: FACT_MEMBER_SUCCESS.COHORT_KEY
+	toColumn: DIM_COHORT_SUMMARY.COHORT_KEY
+
+relationship a8a4b470-8dd5-80b3-6a16-af799738a489
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: FACT_MEMBER_SUCCESS.MEMBER_KEY
+	toColumn: DIM_PRIORITY_GROUP.MEMBER_KEY
+
+relationship a272b820-d7e1-89b5-4ebf-30a7a64c6fed
+	crossFilteringBehavior: bothDirections
+	fromColumn: FACT_MEMBER_SUCCESS.MEMBER_SUCCESS_DATE
+	toColumn: Dim_Calendar.Date
+

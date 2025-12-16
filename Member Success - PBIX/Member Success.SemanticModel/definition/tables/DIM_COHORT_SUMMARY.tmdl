@@ -1,0 +1,235 @@
+table DIM_COHORT_SUMMARY
+	lineageTag: 900ddd24-f197-446e-a13f-3ced3dcf47ab
+
+	measure Cohort_Members = SUM(DIM_COHORT_SUMMARY[COHORT_MEMBER_COUNT])
+		formatString: 0
+		lineageTag: 7d94ea4a-6df4-4d14-bac2-c53cd6a75065
+
+		changedProperty = IsHidden
+
+	measure Cohort_Summary_Success_Ct = Sum(DIM_COHORT_SUMMARY[HAS_SUCCESS_COUNT])
+		formatString: 0
+		lineageTag: 3e65ce0d-f3c9-4b6f-9bf1-fa4607542d48
+
+	measure Cohort_Summary_Success_Denom = Sum(DIM_COHORT_SUMMARY[COHORT_MEMBER_SUCCESS_DENOM])
+		formatString: 0
+		lineageTag: a03738b6-22f1-44a7-b1cb-d439eb08b72f
+
+	measure Cohort_Exclusions = Sum(DIM_COHORT_SUMMARY[HAS_EXCLUSION_COUNT])
+		formatString: 0
+		lineageTag: 2794f50f-def7-4c40-bda5-8dc2ad1e2db8
+
+	column COHORT_MEMBER_COUNT
+		dataType: double
+		isHidden
+		formatString: 0
+		lineageTag: cb30a8f1-19c6-459d-91aa-ca795f137bf3
+		summarizeBy: sum
+		sourceColumn: COHORT_MEMBER_COUNT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column COHORT_KEY
+		dataType: int64
+		lineageTag: d14c6bcb-f5d7-4c15-8d96-4a7ddc29052f
+		summarizeBy: none
+		sourceColumn: COHORT_KEY
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COHORT_NAME
+		dataType: string
+		lineageTag: 3a6ccacd-5842-4728-9fe1-888d808d0f89
+		summarizeBy: none
+		sourceColumn: COHORT_NAME
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column COHORT_MEMBER_SUCCESS_DENOM
+		dataType: int64
+		lineageTag: 2c231dcd-9c3e-4ea0-a7d9-adb765414ebc
+		summarizeBy: sum
+		sourceColumn: COHORT_MEMBER_SUCCESS_DENOM
+
+		changedProperty = IsHidden
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column HAS_SUCCESS_COUNT
+		dataType: int64
+		lineageTag: e15e7a2c-771e-4ce8-9e5c-ad3780ccbdd8
+		summarizeBy: sum
+		sourceColumn: HAS_SUCCESS_COUNT
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SUCCESS_RATE
+		dataType: double
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: d7709faf-53fa-4c93-a99e-20e3f4664c27
+		summarizeBy: sum
+		sourceColumn: SUCCESS_RATE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_BUSINESS_SUCCESS_COUNT
+		dataType: int64
+		lineageTag: bac8192c-fba7-46c7-ab73-47ae13e0ccf1
+		summarizeBy: sum
+		sourceColumn: HAS_BUSINESS_SUCCESS_COUNT
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column BUSINESS_SUCCESS_RATE
+		dataType: double
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: f9d52a6a-d1f3-40f4-82f1-526f83564de2
+		summarizeBy: sum
+		sourceColumn: BUSINESS_SUCCESS_RATE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_STUDY_SUCCESS_COUNT
+		dataType: int64
+		lineageTag: 1001da8f-9940-4682-8d04-c0946f8d6bbe
+		summarizeBy: sum
+		sourceColumn: HAS_STUDY_SUCCESS_COUNT
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column STUDY_SUCCESS_RATE
+		dataType: double
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: b60ccd74-7d9a-403e-8e71-b0cd12798726
+		summarizeBy: sum
+		sourceColumn: STUDY_SUCCESS_RATE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_VOLUNTEER_SUCCESS_COUNT
+		dataType: int64
+		lineageTag: 0ebdc683-2bfa-4b32-9527-083e509b2fcb
+		summarizeBy: sum
+		sourceColumn: HAS_VOLUNTEER_SUCCESS_COUNT
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VOLUNTEER_SUCCESS_RATE
+		dataType: double
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: c36a8308-d3d2-4f8e-8d90-d050e97c8fdf
+		summarizeBy: sum
+		sourceColumn: VOLUNTEER_SUCCESS_RATE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_PAID_SUCCESS_COUNT
+		dataType: int64
+		lineageTag: 5f14b76f-6bc5-468b-9b38-aac1d9acd11b
+		summarizeBy: sum
+		sourceColumn: HAS_PAID_SUCCESS_COUNT
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PAID_SUCCESS_RATE
+		dataType: double
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 5eff4b81-ceed-41f4-a850-55f24cabee79
+		summarizeBy: sum
+		sourceColumn: PAID_SUCCESS_RATE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column HAS_DROPOUT_COUNT
+		dataType: int64
+		lineageTag: 1689b658-2dfa-4ce8-bad7-417d9082e3d0
+		summarizeBy: sum
+		sourceColumn: HAS_DROPOUT_COUNT
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column HAS_EXCLUSION_COUNT
+		dataType: int64
+		lineageTag: 62ef164f-b2ef-4b2b-b601-51f58db0c10f
+		summarizeBy: sum
+		sourceColumn: HAS_EXCLUSION_COUNT
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition DIM_COHORT_SUMMARY = m
+		mode: import
+		source =
+				let
+				    Source = Snowflake.Databases("JJEOGOT-UZ72538.snowflakecomputing.com","FW_Warehouse",[Implementation="1.0"]),
+				    FW_GOLD_LAYER_Database = Source{[Name="FW_GOLD_LAYER",Kind="Database"]}[Data],
+				    GOLD_Schema = FW_GOLD_LAYER_Database{[Name="GOLD",Kind="Schema"]}[Data],
+				    DIM_COHORT_SUMMARY_View = GOLD_Schema{[Name="DIM_COHORT_SUMMARY",Kind="View"]}[Data]
+				in
+				    DIM_COHORT_SUMMARY_View
+

@@ -1,0 +1,210 @@
+table Dim_Calendar
+	lineageTag: 1ea4f08b-73af-4a11-b543-9d0a16da9080
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: General Date
+		lineageTag: 33bf435c-2284-4e39-b0e5-625462602eba
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateAsInteger
+		lineageTag: 56c20b74-37b1-48d9-a9df-3acef8c33c9e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [DateAsInteger]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: 9b5bcd98-4036-4ba1-86b0-766d447b594b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNumber
+		lineageTag: de0f1105-cc83-47ca-925d-aa5c9bae204a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MonthNumber]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNameLong
+		lineageTag: 3da3f400-2835-4630-92a1-8bd2a7687183
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MonthNameLong]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNameShort
+		lineageTag: 62d272d4-ed82-4cfa-bf3e-2225ea509a06
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MonthNameShort]
+		sortByColumn: MonthNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		lineageTag: 9e9dab31-6503-450e-a8c3-83ba597d481f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfWeekNumber
+		formatString: 0
+		lineageTag: b34394dc-096f-4572-a9d4-8db3b392843a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [DayOfWeekNumber]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfWeek
+		lineageTag: 9d73320a-cc65-4094-bc15-9b68237bb6f1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [DayOfWeek]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfWeekShort
+		lineageTag: 4fac26e2-a56c-49f3-afc6-4e545249e2d2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [DayOfWeekShort]
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalYear
+		lineageTag: 9cf3aecc-8c38-4851-a181-f16b26b26179
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [FiscalYear]
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalYearNumber
+		formatString: 0
+		lineageTag: caca8a0a-45cb-48b3-96dc-44d240761a78
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [FiscalYearNumber]
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalQuarter
+		lineageTag: 1c0102f0-c10a-49e6-ba36-45588d918532
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [FiscalQuarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNoFiscal = ```
+			SWITCH(TRUE(), 
+			            [MonthNumber] = "07", 1, 
+			            [MonthNumber] = "08", 2,
+			            [MonthNumber] = "09", 3,
+			            [MonthNumber] = "10", 4,
+			            [MonthNumber] = "11", 5,
+			            [MonthNumber] = "12", 6,
+			            [MonthNumber] = "01", 7,
+			            [MonthNumber] = "02", 8,
+			            [MonthNumber] = "03", 9,
+			            [MonthNumber] = "04", 10,
+			            [MonthNumber] = "05", 11,
+			            [MonthNumber] = "06", 12,
+			0)
+			
+			
+			
+			
+			
+			```
+		formatString: 0
+		lineageTag: d41f3df4-0ccf-49a0-b2eb-17ac865138f5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsCurrentMonth
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 70c7cba3-0777-4a5d-ab36-d303801ecbcf
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [IsCurrentMonth]
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsQuarterEnd
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b2c72123-b8b2-4c10-8246-7e33e6e59548
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [IsQuarterEnd]
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsCurrentWeek
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: ace63357-adda-470b-9283-27fee9f5c997
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [IsCurrentWeek]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Calendar = calculated
+		mode: import
+		source = ```
+				
+				ADDCOLUMNS(
+				    CALENDAR(DATE(2023, 1, 1), DATE(2026, 12, 31)),
+				    "DateAsInteger", FORMAT([Date], "YYYYMMDD"),
+				    "Year", YEAR([Date]),
+				    "MonthNumber", FORMAT([Date], "MM"),
+				    "MonthNameLong", FORMAT([Date], "MMMM"),
+				    "MonthNameShort", FORMAT([Date], "MMM"),
+				    "Quarter", "Q" & FORMAT([Date], "Q"),
+				    "DayOfWeekNumber", WEEKDAY([Date], 2), -- Monday = 1, Sunday = 7
+				    "DayOfWeek", FORMAT([Date], "DDDD"),
+				    "DayOfWeekShort", FORMAT([Date], "DDD"),
+				    "FiscalYear", IF(MONTH([Date]) >= 7, YEAR([Date]) & "-" & (YEAR([Date]) + 1), (YEAR([Date]) - 1) & "-" & YEAR([Date])),
+				    "FiscalYearNumber", IF(MONTH([Date]) >= 7, YEAR([Date]) + 1, YEAR([Date])),
+				    "FiscalQuarter", IF(MONTH([Date]) >= 7, "FQ" & CEILING((MONTH([Date]) - 6) / 3, 1), "FQ" & CEILING((MONTH([Date]) + 6) / 3, 1)),
+				  "IsCurrentMonth", 
+				        IF(
+				            YEAR([Date]) = YEAR(TODAY()) &&
+				            MONTH([Date]) = MONTH(TODAY()),
+				            TRUE(), FALSE()
+				        ),
+				   "IsQuarterEnd",
+				        IF(
+				            MONTH([Date]) IN {3, 6, 9, 12} &&
+				            DAY([Date]) = DAY(EOMONTH([Date], 0)),
+				            TRUE(), FALSE()
+				        )
+				,
+				   "IsCurrentWeek",
+				        VAR WeekStart = Day([Date]) - WEEKDAY(Day([Date]), 2) + 1
+				        VAR WeekEnd = WeekStart + 6
+				        RETURN IF([Date] >= WeekStart && [Date] <= WeekEnd, TRUE(), FALSE())
+				
+				
+				)
+				```
+
+	annotation PBI_Id = b6af0e8acedb45faaf331199fc402931
+

@@ -1,0 +1,269 @@
+table DIM_PRIORITY_GROUP
+	lineageTag: 254bec76-cfef-4e0a-9217-d0998cfe7c12
+
+	measure 'Members CARM %' = If([Members_Count] < 5, 0, CALCULATE([Members CARM]/DIM_PRIORITY_GROUP[Members_Count]))
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cols & Metrics
+		lineageTag: 7a3ad6f1-5d46-4e5d-9cf3-2807beee6a22
+
+		changedProperty = IsHidden
+
+	measure Members_Count = Count(DIM_PRIORITY_GROUP[MEMBER_KEY])
+		formatString: 0
+		displayFolder: Cols & Metrics
+		lineageTag: f469ec73-a649-4d9d-8172-380d14bd44db
+
+		changedProperty = IsHidden
+
+	measure 'Members %  Alt' = If([Members_Count] < 5, 0, CALCULATE([Members_Count]/FACT_MEMBER[M_Member_Count]))
+		lineageTag: 8550dc33-6fb7-4e87-bbfc-7013eb42fcb4
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Members CARM' = Calculate(DIM_PRIORITY_GROUP[Members_Count], DIM_PRIORITY_GROUP[IS_CARM] = TRUE())
+		formatString: 0
+		displayFolder: Cols & Metrics
+		lineageTag: 26f97a74-a740-4b2b-85a6-d2c7745050a4
+
+		changedProperty = IsHidden
+
+	measure 'Members Regional' = Calculate(DIM_PRIORITY_GROUP[Members_Count], DIM_PRIORITY_GROUP[IS_REGIONAL] = TRUE())
+		formatString: 0
+		displayFolder: Cols & Metrics
+		lineageTag: 4b5c544d-0815-4b8c-8024-0f6e4dc7463f
+
+		changedProperty = IsHidden
+
+	measure 'Members First Nations' = Calculate(DIM_PRIORITY_GROUP[Members_Count], DIM_PRIORITY_GROUP[IS_FIRST_NATIONS] = TRUE())
+		formatString: 0
+		displayFolder: Cols & Metrics
+		lineageTag: e9799640-80c6-4f71-93ef-a719ec3e7803
+
+		changedProperty = IsHidden
+
+	measure 'Members Living With Disability' = Calculate(DIM_PRIORITY_GROUP[Members_Count], DIM_PRIORITY_GROUP[IS_DISABILITY] = TRUE())
+		formatString: 0
+		displayFolder: Cols & Metrics
+		lineageTag: 19291108-29f6-4257-9c41-436c2384d79b
+
+		changedProperty = IsHidden
+
+	measure 'Members Priority Group' = Calculate(DIM_PRIORITY_GROUP[Members_Count], DIM_PRIORITY_GROUP[PRIORITY_GROUP] = "Priority Group")
+		formatString: 0
+		displayFolder: Cols & Metrics
+		lineageTag: 49d37c98-0017-4d2c-b586-e4944fb4ddfb
+
+		changedProperty = IsHidden
+
+	measure 'Members First Nations % ' = If([Members_Count] < 5, 0, CALCULATE([Members First Nations]/DIM_PRIORITY_GROUP[Members_Count]))
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cols & Metrics
+		lineageTag: 6ace36eb-35d4-4be3-b3de-625a8da2d37d
+
+		changedProperty = IsHidden
+
+	measure 'Members Living With Disability %' = If([Members_Count] < 5, 0, CALCULATE([Members Living With Disability]/DIM_PRIORITY_GROUP[Members_Count]))
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cols & Metrics
+		lineageTag: aa69e419-963f-4c18-acba-1f6fb2c0370f
+
+		changedProperty = IsHidden
+
+	measure 'Members Regional %' = If([Members_Count] < 5, 0, CALCULATE([Members Regional]/DIM_PRIORITY_GROUP[Members_Count]))
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cols & Metrics
+		lineageTag: fc34a056-24e0-4fc8-87c2-865b8e7b5ce5
+
+		changedProperty = IsHidden
+
+	measure 'Members Priority Group %' = If([Members_Count] < 5, 0, CALCULATE([Members Priority Group]/DIM_PRIORITY_GROUP[Members_Count]))
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cols & Metrics
+		lineageTag: 03cabc5f-c61b-480e-b8d3-fa737da7ef13
+
+		changedProperty = IsHidden
+
+	measure Members_Count_Max = CALCULATE(Count(DIM_PRIORITY_GROUP[MEMBER_KEY]), ALL(DIM_PRIORITY_GROUP))
+		formatString: 0
+		displayFolder: Cols & Metrics
+		lineageTag: 2f1f753b-7c34-4de9-a7be-905ed998f75d
+
+		changedProperty = IsHidden
+
+	measure Members_% = [Members_Count]/DIM_COHORT_SUMMARY[Cohort_Members]
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cols & Metrics
+		lineageTag: b80866f3-6851-4e06-ad3e-2317db0f7a41
+
+		changedProperty = IsHidden
+
+	measure Members_%_Cohort = CALCULATE([Members_%], DIM_COHORT_SUMMARY, DIM_COHORT_SUMMARY[COHORT_NAME]=SELECTEDVALUE(DIM_COHORT[COHORT_NAME]))
+		displayFolder: Cols & Metrics
+		lineageTag: 0295f5a0-87f7-42ea-9a58-261ac37ff024
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Members_Count_Cohort = CALCULATE([Members_Count], DIM_COHORT_SUMMARY, DIM_COHORT_SUMMARY[COHORT_NAME]=SELECTEDVALUE(DIM_COHORT[COHORT_NAME]))
+		formatString: 0
+		displayFolder: Cols & Metrics
+		lineageTag: f95511a2-c749-4d7c-8648-50a3ba56649d
+
+		changedProperty = IsHidden
+
+	column MEMBER_KEY
+		dataType: int64
+		lineageTag: 23193f96-6cd1-4ec1-baa5-a7f94442871c
+		summarizeBy: none
+		sourceColumn: MEMBER_KEY
+
+		changedProperty = IsHidden
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column APPLICANT_KEY
+		dataType: double
+		lineageTag: 6341e3d1-077f-4cc7-ab51-a2e6ad32ceac
+		summarizeBy: sum
+		sourceColumn: APPLICANT_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PRIORITY_GROUP
+		dataType: string
+		displayFolder: Cols & Metrics
+		lineageTag: 4315a090-3b0d-4abe-9f00-c21da98b9244
+		summarizeBy: none
+		sourceColumn: PRIORITY_GROUP
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column COHORT_KEY
+		dataType: double
+		formatString: 0
+		lineageTag: a0e55c80-47c9-4016-95f4-469f676f3616
+		summarizeBy: sum
+		sourceColumn: COHORT_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column COHORT_NAME
+		dataType: string
+		lineageTag: c5f9deed-0289-4822-93d9-53b803f1c2ba
+		summarizeBy: none
+		sourceColumn: COHORT_NAME
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IS_CARM
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		displayFolder: Flags
+		lineageTag: 65a0244e-1d42-44d1-9cbd-c91b28fd8e25
+		summarizeBy: none
+		sourceColumn: IS_CARM
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IS_FIRST_NATIONS
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		displayFolder: Flags
+		lineageTag: a9f357d4-96e1-4b45-8f6d-ef8d2854269f
+		summarizeBy: none
+		sourceColumn: IS_FIRST_NATIONS
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IS_REGIONAL
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		displayFolder: Flags
+		lineageTag: 4f62221f-50c2-4e69-9f38-160250dac585
+		summarizeBy: none
+		sourceColumn: IS_REGIONAL
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IS_DISABILITY
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		displayFolder: Flags
+		lineageTag: 1a26a497-ce35-4a02-9bd6-af0417c56e4a
+		summarizeBy: none
+		sourceColumn: IS_DISABILITY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CARM = If( DIM_PRIORITY_GROUP[IS_CARM] = True, "CARM", "Non CARM")
+		displayFolder: Cols & Metrics
+		lineageTag: 389fc29b-4f86-42c6-8d98-0bfb032b656e
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Living With Disabililty' = If( DIM_PRIORITY_GROUP[IS_DISABILITY] = TRUE(), "Living With Disability", "Non Living With Disability")
+		displayFolder: Cols & Metrics
+		lineageTag: 7293d091-90f7-4c03-ae5d-9bc492b1ead0
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Nations' = If( DIM_PRIORITY_GROUP[IS_FIRST_NATIONS] = TRUE(), "First Nations", "Non First Nations")
+		displayFolder: Cols & Metrics
+		lineageTag: 01d98bbc-248e-4d00-a49d-17dadd2e7a6a
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional = If( DIM_PRIORITY_GROUP[IS_REGIONAL] = TRUE(), "Regional", "Non Regional")
+		displayFolder: Cols & Metrics
+		lineageTag: c3f714a9-d419-41b0-9509-b1fbd6ce7d31
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIM_PRIORITY_GROUP = m
+		mode: import
+		source =
+				let
+				    Source = Snowflake.Databases("JJEOGOT-UZ72538.snowflakecomputing.com","FW_Warehouse",[Implementation="1.0"]),
+				    FW_GOLD_LAYER_Database = Source{[Name="FW_GOLD_LAYER",Kind="Database"]}[Data],
+				    GOLD_Schema = FW_GOLD_LAYER_Database{[Name="GOLD",Kind="Schema"]}[Data],
+				    DIM_PRIORITY_GROUP_View = GOLD_Schema{[Name="DIM_PRIORITY_GROUP",Kind="View"]}[Data]
+				in
+				    DIM_PRIORITY_GROUP_View
+

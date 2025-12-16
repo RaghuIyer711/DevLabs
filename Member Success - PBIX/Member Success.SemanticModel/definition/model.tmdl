@@ -1,0 +1,28 @@
+model Model
+	culture: en-IN
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["DIM_COHORT","DIM_PRIORITY_GROUP","DIM_COHORT_SUMMARY","FACT_MEMBER_SUCCESS"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table DateTableTemplate_3bee134a-2bee-4a09-8536-35d9b7119776
+ref table Dim_Calendar
+ref table DIM_COHORT
+ref table DIM_PRIORITY_GROUP
+ref table DIM_COHORT_SUMMARY
+ref table LocalDateTable_b1bfbc42-aad3-4627-8c06-3366559d0e1b
+ref table LocalDateTable_4cbc55f6-19fe-47d8-99f1-0278971c78fa
+ref table LocalDateTable_20285f8f-2bbc-41e2-88f5-7fa04eeae448
+ref table FACT_MEMBER_SUCCESS
+ref table LocalDateTable_a36b6dab-21c0-443b-bc63-aaf2e239365f
+ref table LocalDateTable_b89cc178-863f-43af-acd3-2fc8d581ce6b
+
+ref cultureInfo en-IN
+

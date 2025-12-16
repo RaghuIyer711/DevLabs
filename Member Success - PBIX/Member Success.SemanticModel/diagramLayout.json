@@ -1,0 +1,87 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 1503.8461538461538,
+        "y": 6844.9375362186638
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 3769.6312968592629,
+            "y": 7323.6274023132255
+          },
+          "nodeIndex": "Dim_Calendar",
+          "nodeLineageTag": "1ea4f08b-73af-4a11-b543-9d0a16da9080",
+          "size": {
+            "height": 651.44947730337026,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 2054.5678462748619,
+            "y": 7171.908842458377
+          },
+          "nodeIndex": "DIM_COHORT",
+          "nodeLineageTag": "eb47ea75-0090-4977-af42-101e0029cbaf",
+          "size": {
+            "height": 567.13542068851984,
+            "width": 283.57463829479684
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 2942.282380179076,
+            "y": 8026.2064536978687
+          },
+          "nodeIndex": "DIM_PRIORITY_GROUP",
+          "nodeLineageTag": "254bec76-cfef-4e0a-9217-d0998cfe7c12",
+          "size": {
+            "height": 360.07457926650659,
+            "width": 339.4624579843935
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 2663.0832037533651,
+            "y": 7083.4084385175865
+          },
+          "nodeIndex": "DIM_COHORT_SUMMARY",
+          "nodeLineageTag": "900ddd24-f197-446e-a13f-3ced3dcf47ab",
+          "size": {
+            "height": 522.2903952977581,
+            "width": 291.00673404561894
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 3271.5451070281724,
+            "y": 7015.3347062239445
+          },
+          "nodeIndex": "FACT_MEMBER_SUCCESS",
+          "nodeLineageTag": "1d6f2055-1e6c-49fc-8a6f-ac9d468d27a2",
+          "size": {
+            "height": 1000,
+            "width": 382.21750851860725
+          },
+          "zIndex": 4
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 63.304347826086961,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

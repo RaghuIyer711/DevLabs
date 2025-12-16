@@ -1,0 +1,244 @@
+table DIM_COHORT
+	lineageTag: eb47ea75-0090-4977-af42-101e0029cbaf
+
+	column MEMBER_KEY
+		dataType: double
+		lineageTag: 85c5b414-3b1e-4d96-8845-45be9c96b534
+		summarizeBy: sum
+		sourceColumn: MEMBER_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column APPLICANT_KEY
+		dataType: double
+		lineageTag: af4b452c-a117-49eb-b8d9-75cfd31ff8af
+		summarizeBy: sum
+		sourceColumn: APPLICANT_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COHORT_KEY
+		dataType: double
+		formatString: 0
+		lineageTag: 66902031-3f4e-44e6-ac54-2dc77b302893
+		summarizeBy: none
+		sourceColumn: COHORT_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column COHORT_NAME
+		dataType: string
+		lineageTag: 8bac83c3-0a92-43fa-94b5-bc756404209d
+		summarizeBy: none
+		sourceColumn: COHORT_NAME
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column START_DATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f1e0af86-dbf4-42f8-81e2-919259123602
+		summarizeBy: none
+		sourceColumn: START_DATE
+
+		variation Variation
+			isDefault
+			relationship: 9c923ab4-07d2-428a-8b52-db184f2b9f54
+			defaultHierarchy: LocalDateTable_b1bfbc42-aad3-4627-8c06-3366559d0e1b.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column END_DATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7acc6f8c-6416-4e13-ab53-5e7238780686
+		summarizeBy: none
+		sourceColumn: END_DATE
+
+		variation Variation
+			isDefault
+			relationship: a6ee21f7-1f50-47f0-89d9-2bc88a3c2036
+			defaultHierarchy: LocalDateTable_4cbc55f6-19fe-47d8-99f1-0278971c78fa.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CENSUS_DATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 96e8bafb-3309-4a88-89f9-dae268ee7f14
+		summarizeBy: none
+		sourceColumn: CENSUS_DATE
+
+		variation Variation
+			isDefault
+			relationship: 52dd9ca0-2aeb-4b45-95a5-5c1d1d74e592
+			defaultHierarchy: LocalDateTable_20285f8f-2bbc-41e2-88f5-7fa04eeae448.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column COHORT_ID_AC_TAG_
+		dataType: string
+		lineageTag: eb8ae78f-9bb3-417a-b5d5-a80383b79430
+		summarizeBy: none
+		sourceColumn: COHORT_ID_AC_TAG_
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AC_TAG_ID
+		dataType: string
+		lineageTag: d342ae7b-d76b-4873-ac29-1f2bf8e03209
+		summarizeBy: none
+		sourceColumn: AC_TAG_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column MEMBERFUL_PLAN_ID
+		dataType: string
+		lineageTag: 6ffaf1c5-4591-43bb-b896-ad2493ce2f26
+		summarizeBy: none
+		sourceColumn: MEMBERFUL_PLAN_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column DROPOUT_TAG_AC_
+		dataType: string
+		lineageTag: 85d283da-9b16-4dbf-ac2f-0794a84ae6d2
+		summarizeBy: none
+		sourceColumn: DROPOUT_TAG_AC_
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column TARGET_COHORT_SIZE
+		dataType: double
+		lineageTag: 7eb5f982-8aaf-4129-9957-bfdbde2b6f79
+		summarizeBy: sum
+		sourceColumn: TARGET_COHORT_SIZE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LIVING_WITH_DISABILITY_TARGET_
+		dataType: string
+		lineageTag: ec9761ff-dfca-47f4-b279-f4065ea99d02
+		summarizeBy: none
+		sourceColumn: LIVING_WITH_DISABILITY_TARGET_
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column REGIONAL_TARGET_
+		dataType: string
+		lineageTag: 45c2441a-1ce1-4308-97b5-e8365a1b1abc
+		summarizeBy: none
+		sourceColumn: REGIONAL_TARGET_
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CARM_TARGET_
+		dataType: string
+		lineageTag: 4dc37020-0322-4b61-bb43-91269cc35843
+		summarizeBy: none
+		sourceColumn: CARM_TARGET_
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column FIRST_NATIONS_TARGET_
+		dataType: string
+		lineageTag: 3095f6af-fcd8-47a7-8f51-e523c4f1bca7
+		summarizeBy: none
+		sourceColumn: FIRST_NATIONS_TARGET_
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column APPLICATION_PERIOD_KEY
+		dataType: double
+		lineageTag: 372df067-3c41-4ab2-9295-a36796a7518f
+		summarizeBy: sum
+		sourceColumn: APPLICATION_PERIOD_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column APPLICANT_PERIOD
+		dataType: string
+		lineageTag: f7f355ac-0fe8-4401-b46f-904e2498d5bf
+		summarizeBy: none
+		sourceColumn: APPLICANT_PERIOD
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ACTIVE_COHORT
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 085cf080-de65-40b0-8aa9-347c050fa28c
+		summarizeBy: none
+		sourceColumn: ACTIVE_COHORT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Active Cohort' = If(DIM_COHORT[ACTIVE_COHORT]=True, "Active","Historic")
+		lineageTag: 02a554d3-6cf6-4f2f-8a80-fccfce54e958
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIM_COHORT = m
+		mode: import
+		source =
+				let
+				    Source = Snowflake.Databases("JJEOGOT-UZ72538.snowflakecomputing.com","FW_Warehouse",[Implementation="1.0"]),
+				    FW_GOLD_LAYER_Database = Source{[Name="FW_GOLD_LAYER",Kind="Database"]}[Data],
+				    GOLD_Schema = FW_GOLD_LAYER_Database{[Name="GOLD",Kind="Schema"]}[Data],
+				    DIM_COHORT_View = GOLD_Schema{[Name="DIM_COHORT",Kind="View"]}[Data]
+				in
+				    DIM_COHORT_View
+

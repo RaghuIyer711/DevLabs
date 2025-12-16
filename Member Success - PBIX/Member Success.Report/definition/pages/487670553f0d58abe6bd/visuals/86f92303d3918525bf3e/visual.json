@@ -1,0 +1,584 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "86f92303d3918525bf3e",
+  "position": {
+    "x": 245.80897697661564,
+    "y": 229.17528680526573,
+    "z": 8000,
+    "height": 81.320263059933,
+    "width": 167.26099561190765,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FACT_MEMBER_SUCCESS"
+                    }
+                  },
+                  "Property": "M_Rate_Job_Success"
+                }
+              },
+              "queryRef": "FACT_MEMBER_SUCCESS.M_Rate_Job_Success",
+              "nativeQueryRef": "Job %",
+              "displayName": "Job %"
+            },
+            {
+              "field": {
+                "SparklineData": {
+                  "Measure": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FACT_MEMBER_SUCCESS"
+                        }
+                      },
+                      "Property": "M_Rate_Job_Success"
+                    }
+                  },
+                  "Groupings": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Dim_Calendar"
+                          }
+                        },
+                        "Property": "MonthNumber"
+                      }
+                    }
+                  ],
+                  "ApplyCalculationGroupTo": "Point"
+                }
+              },
+              "queryRef": "SparklineData(FACT_MEMBER_SUCCESS.M_Rate_Job_Success_[Dim_Calendar.MonthNumber])",
+              "nativeQueryRef": "Trend",
+              "displayName": "Trend"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "54.962288018871774D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DIM_MEMBER_SUCCESS.Member_Success_Ct"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "91.93002135412391D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DIM_MEMBER_SUCCESS.COHORT"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "36.05622615762468D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(DIM_MEMBER_SUCCESS.COHORT_KEY)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "72.20014385753035D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DIM_COHORT_SUMMARY.COHORT_NAME"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "56.739142407520575D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DIM_MEMBER_SUCCESS.Member_Success_%"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "59.86165931728203D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(DIM_MEMBER_SUCCESS.HAS_VOLUNTEER_SUCCESS_CT)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "47.88610612842572D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(DIM_MEMBER_SUCCESS.HAS_STUDY_SUCCESS_CT)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "50.91060170200316D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(DIM_MEMBER_SUCCESS.HAS_PAID_SUCCESS_CT)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "56.05758282518413D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(DIM_MEMBER_SUCCESS.HAS_JOB_SUCCESS_CT)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "59.23674969565777D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(DIM_MEMBER_SUCCESS.HAS_EXCLUSION_CT)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "58.76711906763292D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(DIM_MEMBER_SUCCESS.HAS_DROPOUT_CT)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "58.20575871964945D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(DIM_MEMBER_SUCCESS.HAS_BUSINESS_SUCCESS_CT)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "60.22045151476223D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DIM_MEMBER_SUCCESS.DropOuts_%"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "60.4396044010256D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DIM_MEMBER_SUCCESS.Paid_Success_%"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "67.82980898940403D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DIM_MEMBER_SUCCESS.Study_Success_%"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "70.18140609660887D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DIM_MEMBER_SUCCESS.Volunteer_%"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "74.20453864685916D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DIM_MEMBER_SUCCESS.Exclusions_%"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "73.72518042148346D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DIM_MEMBER_SUCCESS.Has_Upskilling_Success_Count"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "70.04757819720248D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DIM_MEMBER_SUCCESS.Upskilling_Success_%"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "59.36253575179475D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "FACT_MEMBER_SUCCESS.M_Rate_Job_Success"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "93.68477421459382D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "SparklineData(FACT_MEMBER_SUCCESS.M_Rate_Job_Success_[Dim_Calendar.MonthNumber])"
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 1,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {
+            "gridHorizontal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#62A9A1'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'wf_standard-font, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'wf_standard-font, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Sparse'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "titleWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Success Detail'"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'wf_standard-font_light, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#62A9A1'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
